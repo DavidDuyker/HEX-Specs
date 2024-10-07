@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Plugin</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link to the bundled CSS -->
+</head>
+
+<body>
+  <h2>HEX Spec</h2>
+  <p>Count: <input id="count" type="number" value="5" /></p>
+  <button id="select">Create</button>
+  <button id="eyedrop">Cancel</button>
+  <script>
+    document.getElementById("select").onclick = () => {
+      const textbox = document.getElementById("count");
+      const count = parseInt(textbox.value, 10);
+      parent.postMessage(
+        { pluginMessage: { type: "create-shapes", count } },
+        "*"
+      );
+    };
+
+    document.getElementById("eyedrop").onclick = () => {
+      parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
+    };
+  </script>
+</body>
+
+</html>

@@ -4,10 +4,13 @@
   "description": "Your Figma Plugin",
   "main": "code.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build:ts": "tsc --project tsconfig.json",
+    "build:plugin": "npm run build:ts && vite build --config vite.config.plugin.js",
+    "build:ui": "vite build --config vite.config.ui.js --emptyOutDir=false",
+    "build": "npm run build:plugin && npm run build:ui",
+    "watch": "npm run build",
     "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules .",
-    "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix .",
-    "watch": "npm run build -- --watch"
+    "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix ."
   },
   "author": "",
   "license": "",
@@ -17,7 +20,9 @@
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "eslint": "^8.54.0",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "vite": "^5.4.8",
+    "vite-plugin-singlefile": "^2.0.2"
   },
   "eslintConfig": {
     "extends": [
