@@ -1,3 +1,100 @@
+:root * {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--figma-color-bg);
+    color: var(--figma-color-text);
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+}
+
+body > div {
+    padding: 0 16px;
+}
+
+.selected {
+    background-color: var(--figma-color-bg-selected);
+    color: var(--figma-color-icon-selected);
+}
+
+.selected:hover {
+    background-color: var(--figma-color-bg-selected-hover) !important;
+}
+
 button {
-    background-color: blue;
+    height: 22px;
+    background-color: var(--figma-color-bg-selected);
+    border: none;
+    color: var(--figma-color-icon-selected);
+    border-radius: 3px;
+    padding: 0 12px;
+    font-size: .8rem;
+}
+
+#header {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid var(--figma-color-border);
+    padding: 16px;
+}
+
+#header h2 {
+    color: var(--figma-color-text);
+    font-weight: 600;
+    font-size: 11px;
+    margin: 0;
+}
+
+#pickers {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 8px;
+}
+
+.picker {
+    height: 26px;
+    padding: 0 2px 0 8px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 5px;
+}
+
+.picker * {
+    flex-grow: 0;
+}
+
+.style-dot {
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    background-color: red;
+}
+
+.picker h3 {
+    font-size: 11px;
+    color: var(--figma-color-text);
+    font-weight: 400;
+    flex-grow: 1;
+    margin: 0;
+}
+
+.picker button {
+    display: none;
+}
+
+.picker:hover {
+    background-color: var(--figma-color-bg-hover);
+}
+
+.picker:hover button {
+    display: inline-block;
 }

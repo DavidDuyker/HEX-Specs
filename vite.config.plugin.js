@@ -5,6 +5,7 @@ export default defineConfig({
   build: {
     target: 'esnext',
     outDir: 'dist',
+    emptyOutDir: false,
     rollupOptions: {
       input: 'plugin-src/code.js', // Entry point for the TypeScript code
       output: {

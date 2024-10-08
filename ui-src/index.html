@@ -9,10 +9,18 @@
 </head>
 
 <body>
-  <h2>HEX Spec</h2>
-  <p>Count: <input id="count" type="number" value="5" /></p>
-  <button id="select">Create</button>
-  <button id="eyedrop">Cancel</button>
+  <div id="pickers"><div id="header"><h2>Color Styles</h2></div><div class="picker selected">
+    <div class="foreground style-dot"></div>
+    <h3>Foreground</h3>
+    <button id="select">Select</button>
+    <button id="eyedrop">Eyedrop</button>
+  </div>
+  <div class="picker">
+    <div class="background style-dot"></div>
+    <h3>Background</h3>
+    <button id="select">Select</button>
+    <button id="eyedrop">Eyedrop</button>
+  </div></div>
   <script>
     document.getElementById("select").onclick = () => {
       const textbox = document.getElementById("count");

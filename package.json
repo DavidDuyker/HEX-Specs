@@ -1,14 +1,16 @@
 {
-  "name": "HEX-Specs",
+  "name": "hex-pecs",
   "version": "1.0.0",
   "description": "Your Figma Plugin",
   "main": "code.js",
   "scripts": {
     "build:ts": "tsc --project tsconfig.json",
-    "build:plugin": "npm run build:ts && vite build --config vite.config.plugin.js",
+    "build:plugin": "npm run build:ts && vite build --config vite.config.plugin.js --emptyOutDir=false",
     "build:ui": "vite build --config vite.config.ui.js --emptyOutDir=false",
     "build": "npm run build:plugin && npm run build:ui",
-    "watch": "npm run build",
+    "build:dev": "vite --config vite.config.ui.js && vite --config vite.config.plugin.js",
+    "watch:ts": "tsc --watch --project tsconfig.json",
+    "watch": "concurrently \"npm run watch:ts\" \"vite build --config vite.config.ui.js --watch\" \"vite build --config vite.config.plugin.js --watch\"",
     "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules .",
     "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix ."
   },
@@ -19,6 +21,7 @@
     "@figma/plugin-typings": "^1.100.2",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
+    "concurrently": "^9.0.1",
     "eslint": "^8.54.0",
     "typescript": "^5.3.2",
     "vite": "^5.4.8",
