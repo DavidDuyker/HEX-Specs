@@ -1,100 +1,215 @@
-:root * {
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
-body {
-    background-color: var(--figma-color-bg);
-    color: var(--figma-color-text);
-    padding: 0;
+* {
     margin: 0;
+}
+  
+body {
+    line-height: 1.2;
+    -webkit-font-smoothing: antialiased;
+}
+  
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+  
+input, button, textarea, select {
+    font: inherit;
+}
+  
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+  
+#root, #__next {
+    isolation: isolate;
+}
+
+:root {
+    --foreground: #D22121;
+    --background: #FFEEEE;
+}
+
+body {
+    font-family: 'Inter', serif;
+}
+
+h1 {
+    font-weight: 550;
     font-size: 11px;
-    font-family: 'Inter', sans-serif;
+    color: var(--figma-color-text);
 }
 
-body > div {
-    padding: 0 16px;
+h2 {
+    font-weight: 550;
+    font-size: 11px;
+    color: var(--figma-color-text-secondary);
 }
 
-.selected {
-    background-color: var(--figma-color-bg-selected);
-    color: var(--figma-color-icon-selected);
+h3 {
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--figma-color-text-secondary);
 }
 
-.selected:hover {
-    background-color: var(--figma-color-bg-selected-hover) !important;
+p {
+    font-size: 11px;
+    color: var(--figma-color-text);
 }
+
+/* Button styling (all icon buttons) */
 
 button {
-    height: 22px;
-    background-color: var(--figma-color-bg-selected);
+    font-weight: 600;
     border: none;
-    color: var(--figma-color-icon-selected);
-    border-radius: 3px;
-    padding: 0 12px;
-    font-size: .8rem;
+    background-color: var(--figma-color-bg);
+    color: var(--figma-color-icon);
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
-#header {
+button:hover {
+    background-color: var(--figma-color-bg-hover);
+    color: var(--figma-color-icon-hover)
+}
+
+/* Header area */
+
+.header {
     height: 40px;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: 1px solid var(--figma-color-border);
-    padding: 16px;
+    padding: 8px 8px 8px 16px;
 }
 
-#header h2 {
-    color: var(--figma-color-text);
-    font-weight: 600;
-    font-size: 11px;
-    margin: 0;
+.header h1 {
+    flex-grow: 1;
 }
 
-#pickers {
+/* Information dashboard section */
+
+.dashboard {
+    padding: 0 8px 0 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.dashboardCard {
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    padding: 8px;
-    gap: 8px;
-}
-
-.picker {
-    height: 26px;
-    padding: 0 2px 0 8px;
-    margin: 0;
-    display: flex;
     align-items: center;
     gap: 8px;
-    border-radius: 5px;
+    background-color: var(--figma-color-bg-secondary);
+    border-radius: 4px;
 }
 
-.picker * {
-    flex-grow: 0;
-}
-
-.style-dot {
-    height: 16px;
-    width: 16px;
-    border-radius: 8px;
-    background-color: red;
-}
-
-.picker h3 {
-    font-size: 11px;
-    color: var(--figma-color-text);
-    font-weight: 400;
-    flex-grow: 1;
+.largeText {
+    font-size: 18px;
+    font-weight: 700;
     margin: 0;
+    line-height: 1;
 }
 
-.picker button {
-    display: none;
+.contrastCard {
+    flex-grow: 1;
+    border: 1px solid var(--foreground);
+    background-color: var(--background);
 }
 
-.picker:hover {
+.contrastCard p {
+    color: var(--foreground);
+}
+
+/* Interactive Picker things */
+
+.picker {
+
+}
+
+.picker .header {
+    height: 32px;
+    padding: 0 16px;
+}
+
+.pickSelector {
+    padding: 4px 8px 4px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.pickSelector button {
+    background: none;
+    color: transparent;
+}
+
+.color {
+    background-color: var(--figma-color-bg);
+    padding: 4px;
+    flex-grow: 1;
+    border: 1px solid var(--figma-color-border);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.spot {
+    background-color: var(--foreground);
+    border: 1px solid hsla(0, 0%, 0%, 0.16);
+    width: 14px;
+    height: 14px;
+    border-radius:4px;
+}
+
+#background .spot {
+    background-color: var(--background);
+}
+
+.colorName {
+    color: var(--figma-color-text);
+    flex-grow: 1;
+}
+
+.colorHex {
+    color: var(--figma-color-text-secondary);
+}
+
+/* Active and Hover states */
+
+.active .pickSelector {
+    background-color: var(--figma-color-bg-selected);
+}
+
+.active .pickSelector button {
+    color: var(--figma-color-icon-selected);
+}
+
+.active .color {
+    border-color: var(--figma-color-border-selected);
+}
+
+.pickSelector:hover {
     background-color: var(--figma-color-bg-hover);
 }
 
-.picker:hover button {
-    display: inline-block;
+.pickSelector:hover button {
+    color: var(--figma-color-icon-secondary);
+}
+
+.active .pickSelector:hover {
+    background-color: var(--figma-color-bg-selected);
 }
