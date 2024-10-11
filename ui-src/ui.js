@@ -1,10 +1,10 @@
-import { calculateWCAGContrast, getWCAGLevel, calculateAPCAContrast } from './contrastCalculator';
-let foregroundColor = '#000000';
-let backgroundColor = '#FFFFFF';
+import { calculateWCAGContrast, getWCAGLevel, calculateAPCAContrast, } from "./contrastCalculator";
+let foregroundColor = "#000000";
+let backgroundColor = "#FFFFFF";
 let contrast = null;
 let selectionMode = "none";
 function updateColor(color, type) {
-    if (type === 'foreground') {
+    if (type === "foreground") {
         foregroundColor = color;
     }
     else {
@@ -13,39 +13,50 @@ function updateColor(color, type) {
     calculateContrast();
     updateUIColors();
 }
+function swapColors() {
+    const newForegroundColor = backgroundColor;
+    const newBackgroundColor = foregroundColor;
+    console.log(newForegroundColor, newBackgroundColor);
+    updateColor(newForegroundColor, "foreground");
+    updateColor(newBackgroundColor, "background");
+}
 function calculateContrast() {
     const wcagContrast = calculateWCAGContrast(foregroundColor, backgroundColor);
     const wcagLevel = getWCAGLevel(wcagContrast);
-    const wcagTextElement = document.getElementById('WCAGtext');
+    const wcagTextElement = document.getElementById("WCAGtext");
     if (wcagTextElement) {
         wcagTextElement.textContent = `${wcagContrast}`;
     }
     // Placeholder for APCA (to be implemented later)
     const apcaContrast = calculateAPCAContrast(foregroundColor, backgroundColor);
-    const apcaTextElement = document.getElementById('APCAtext');
+    const apcaTextElement = document.getElementById("APCAtext");
     if (apcaTextElement) {
         apcaTextElement.textContent = `${apcaContrast}`;
     }
 }
 function updateUIColors() {
-    document.documentElement.style.setProperty('--foreground', foregroundColor);
-    document.documentElement.style.setProperty('--background', backgroundColor);
-    document.querySelector('#foregroundSelector input').value = foregroundColor;
-    document.querySelector('#backgroundSelector input').value = backgroundColor;
+    document.documentElement.style.setProperty("--foreground", foregroundColor);
+    document.documentElement.style.setProperty("--background", backgroundColor);
+    document.querySelector("#foregroundSelector input").value = foregroundColor;
+    document.querySelector("#backgroundSelector input").value = backgroundColor;
+    document.querySelector("#foregroundHTMLPicker").value =
+        foregroundColor;
+    document.querySelector("#backgroundHTMLPicker").value =
+        backgroundColor;
 }
 function updateSelectionMode(newMode) {
     selectionMode = newMode;
-    const foregroundEl = document.getElementById('foreground');
-    const backgroundEl = document.getElementById('background');
+    const foregroundEl = document.getElementById("foreground");
+    const backgroundEl = document.getElementById("background");
     if (!foregroundEl || !backgroundEl) {
-        console.error('Could not find foreground or background elements');
+        console.error("Could not find foreground or background elements");
         return;
     }
-    if (selectionMode === 'foreground') {
+    if (selectionMode === "foreground") {
         foregroundEl.classList.add("active");
         backgroundEl.classList.remove("active");
     }
-    else if (selectionMode === 'background') {
+    else if (selectionMode === "background") {
         backgroundEl.classList.add("active");
         foregroundEl.classList.remove("active");
     }
@@ -59,31 +70,34 @@ function handlePluginMessage(event) {
     if (!message)
         return;
     switch (message.type) {
-        case 'selectionChange':
-            console.log('Selection changed:', message.selectionColor);
-            updateColor(message.selectionColor, selectionMode === 'foreground' ? 'foreground' : 'background');
+        case "selectionChange":
+            console.log("Selection changed:", message.selectionColor);
+            updateColor(message.selectionColor, selectionMode === "foreground" ? "foreground" : "background");
             break;
         default:
-            console.log('Unknown message type', message.type);
+            console.log("Unknown message type", message.type);
     }
 }
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('foreground', foregroundColor, 'background', backgroundColor, 'contrast', contrast, 'selection mode', selectionMode);
-    updateColor(foregroundColor, 'foreground');
-    updateColor(backgroundColor, 'background');
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("foreground", foregroundColor, "background", backgroundColor, "contrast", contrast, "selection mode", selectionMode);
+    // Initialize on load
+    updateColor(foregroundColor, "foreground");
+    updateColor(backgroundColor, "background");
+    // Initialize UI display
+    updateUIColors();
     // SELECTION MODE CHANGE INPUT ——————————————————————————————————————————————————————————————————————
-    const foregroundEl = document.getElementById('foreground');
-    const backgroundEl = document.getElementById('background');
+    const foregroundEl = document.getElementById("foreground");
+    const backgroundEl = document.getElementById("background");
     // Set up click handlers for selection mode
     if (foregroundEl && backgroundEl) {
-        foregroundEl.addEventListener('click', () => updateSelectionMode('foreground'));
-        backgroundEl.addEventListener('click', () => updateSelectionMode('background'));
+        foregroundEl.addEventListener("click", () => updateSelectionMode("foreground"));
+        backgroundEl.addEventListener("click", () => updateSelectionMode("background"));
     }
     updateSelectionMode("foreground");
     // USER HEX CODE INPUT ——————————————————————————————————————————————————————————————————————
     // Get both forms
-    const foregroundSelector = document.getElementById('foregroundSelector');
-    const backgroundSelector = document.getElementById('backgroundSelector');
+    const foregroundSelector = document.getElementById("foregroundSelector");
+    const backgroundSelector = document.getElementById("backgroundSelector");
     //foreground update
     if (foregroundSelector && backgroundSelector) {
         foregroundSelector.addEventListener("submit", (event) => {
@@ -91,36 +105,40 @@ document.addEventListener('DOMContentLoaded', () => {
             const input = foregroundSelector.querySelector("input");
             if (input) {
                 console.log("Form 1 submitted with value:", input.value);
-                updateColor(input.value, 'foreground');
+                updateColor(input.value, "foreground");
             }
         });
-        backgroundSelector.addEventListener('submit', (event) => {
+        backgroundSelector.addEventListener("submit", (event) => {
             event.preventDefault(); // Prevent default form submission
-            const input = backgroundSelector.querySelector('input');
+            const input = backgroundSelector.querySelector("input");
             if (input) {
-                console.log('Form 2 submitted with value:', input);
-                updateColor(input.value, 'background');
+                console.log("Form 2 submitted with value:", input);
+                updateColor(input.value, "background");
             }
         });
     }
     // USER COLOR PICKER INPUT ——————————————————————————————————————————————————————————————————
     //Get both forms
-    const foregroundColorPicker = document.getElementById('foregroundHTMLPicker');
-    const backgroundColorPicker = document.getElementById('backgroundHTMLPicker');
+    const foregroundColorPicker = document.getElementById("foregroundHTMLPicker");
+    const backgroundColorPicker = document.getElementById("backgroundHTMLPicker");
     //foreground update
     if (foregroundColorPicker && backgroundColorPicker) {
         foregroundColorPicker.addEventListener("input", (event) => {
             event.preventDefault();
             console.log("Form 1 submitted with value:", foregroundColorPicker.value);
-            updateColor(foregroundColorPicker.value, 'foreground');
+            updateColor(foregroundColorPicker.value, "foreground");
         });
-        backgroundColorPicker.addEventListener('input', (event) => {
+        backgroundColorPicker.addEventListener("input", (event) => {
             event.preventDefault();
-            console.log('Form 2 submitted with value:', backgroundColorPicker.value);
-            updateColor(backgroundColorPicker.value, 'background');
+            console.log("Form 2 submitted with value:", backgroundColorPicker.value);
+            updateColor(backgroundColorPicker.value, "background");
         });
     }
+    // USER SWAP BUTTON ——————————————————————————————————————————————————————————————————
+    const swapColorButton = document.getElementById("swapColors");
+    if (swapColorButton) {
+        swapColorButton.addEventListener("click", swapColors);
+    }
+    // MESSAGE FROM PLUGIN JS LISTENING
+    window.onmessage = handlePluginMessage;
 });
-window.onmessage = handlePluginMessage;
-updateUIColors();
-;
