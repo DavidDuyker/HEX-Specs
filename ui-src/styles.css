@@ -95,6 +95,25 @@ button.disabled:hover {
     background: none;
 }
 
+/* Picker input */
+
+input[type="color"] {
+	appearance: none;
+	border: none;
+    border-radius: 4px;
+	width: 14px;
+	height: 14px;
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+
 /* Header area */
 
 .header {
@@ -159,7 +178,7 @@ button.disabled:hover {
     width: 100%;
 }
 
-.picker .header {
+#pickers .header {
     height: 32px;
     padding: 0 16px;
 }
@@ -195,6 +214,7 @@ button.disabled:hover {
     width: 14px;
     height: 14px;
     border-radius:4px;
+    overflow: hidden;
 }
 
 #background .spot {

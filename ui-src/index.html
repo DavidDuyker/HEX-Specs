@@ -44,15 +44,16 @@
     </div>
     <!-- PICKERS START HERE -->
     <div id="pickers">
+      <div class="header">
+        <h2>Color Styles</h2>
+      </div>
       <div id="foreground" class="picker active">
-        <div class="header">
-          <!-- <h2>Foreground</h2> -->
-           <h2>Color Styles</h2>
-        </div>
         <!-- FOREGROUND PICKER -->
         <div class="pickSelector">
           <div class="color">
-            <div class="spot"></div>
+            <div class="spot">
+                <input id="foregroundHTMLPicker" name="foregroundPicker" value="#000000" type="color">
+            </div>
             <p class="colorName">foreground</p>
             <div class="colorHex">
               <form id="foregroundSelector">
@@ -71,13 +72,12 @@
         </div>
       </div>
       <div id="background" class="picker">
-        <div class="header hidden">
-          <h2>Background</h2>
-        </div>
         <!-- BACKGROUND PICKER -->
         <div class="pickSelector">
           <div class="color">
-            <div class="spot"></div>
+            <div class="spot">
+                <input id="backgroundHTMLPicker" name="backgroundPicker" value="#ffffff" type="color">
+            </div>
             <p class="colorName">background</p>
             <div class="colorHex">
               <form id="backgroundSelector">
