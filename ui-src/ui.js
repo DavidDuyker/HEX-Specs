@@ -103,6 +103,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    window.onmessage = handlePluginMessage;
-    updateUIColors();
+    // USER COLOR PICKER INPUT ——————————————————————————————————————————————————————————————————
+    //Get both forms
+    const foregroundColorPicker = document.getElementById('foregroundHTMLPicker');
+    const backgroundColorPicker = document.getElementById('backgroundHTMLPicker');
+    //foreground update
+    if (foregroundColorPicker && backgroundColorPicker) {
+        foregroundColorPicker.addEventListener("input", (event) => {
+            event.preventDefault();
+            console.log("Form 1 submitted with value:", foregroundColorPicker.value);
+            updateColor(foregroundColorPicker.value, 'foreground');
+        });
+        backgroundColorPicker.addEventListener('input', (event) => {
+            event.preventDefault();
+            console.log('Form 2 submitted with value:', backgroundColorPicker.value);
+            updateColor(backgroundColorPicker.value, 'background');
+        });
+    }
 });
+window.onmessage = handlePluginMessage;
+updateUIColors();
+;

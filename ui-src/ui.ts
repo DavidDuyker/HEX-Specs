@@ -121,6 +121,28 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // USER COLOR PICKER INPUT ——————————————————————————————————————————————————————————————————
+    
+    //Get both forms
+    const foregroundColorPicker = document.getElementById('foregroundHTMLPicker') as HTMLFormElement | null;
+    const backgroundColorPicker = document.getElementById('backgroundHTMLPicker') as HTMLFormElement | null; 
+
+    //foreground update
+    if (foregroundColorPicker && backgroundColorPicker) {
+      foregroundColorPicker.addEventListener("input", (event) => {
+        event.preventDefault();
+          console.log("Form 1 submitted with value:", foregroundColorPicker.value);
+          updateColor(foregroundColorPicker.value, 'foreground');
+      });
+
+      backgroundColorPicker.addEventListener('input', (event) => {
+        event.preventDefault();
+          console.log('Form 2 submitted with value:', backgroundColorPicker.value);
+          updateColor(backgroundColorPicker.value, 'background');
+        }
+      });
+    }
+
     window.onmessage = handlePluginMessage;
 
     updateUIColors();
