@@ -29,8 +29,8 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 :root {
-    --foreground: #D22121;
-    --background: #FFEEEE;
+    --foreground: #000000;
+    --background: #ffffff;
 }
 
 body {
@@ -60,6 +60,14 @@ p {
     color: var(--figma-color-text);
 }
 
+.hidden {
+    display: none !important;
+}
+
+.disabled {
+    color: var(--figma-color-text-disabled);
+}
+
 /* Button styling (all icon buttons) */
 
 button {
@@ -76,6 +84,15 @@ button {
 button:hover {
     background-color: var(--figma-color-bg-hover);
     color: var(--figma-color-icon-hover)
+}
+
+button.disabled {
+    color: var(--figma-color-icon-disabled);
+}
+
+button.disabled:hover {
+    color: var(--figma-color-icon-disabled);
+    background: none;
 }
 
 /* Header area */
@@ -133,8 +150,13 @@ button:hover {
 
 /* Interactive Picker things */
 
-.picker {
+/* temporary */
+#pickers {
+    margin-top: 8px;
+}
 
+.picker {
+    width: 100%;
 }
 
 .picker .header {
@@ -150,14 +172,14 @@ button:hover {
     gap: 8px;
 }
 
-.pickSelector button {
+.pickSelector svg {
     background: none;
     color: transparent;
 }
 
 .color {
     background-color: var(--figma-color-bg);
-    padding: 4px;
+    padding: 4px 5px;
     flex-grow: 1;
     border: 1px solid var(--figma-color-border);
     border-radius: 8px;
@@ -184,8 +206,18 @@ button:hover {
     flex-grow: 1;
 }
 
+.colorHex input {
+    border: none;
+    background: none;
+    color: var(--figma-color-text-secondary);
+    text-align: end;
+}
+
 .colorHex {
     color: var(--figma-color-text-secondary);
+    font-size: 11px;
+    display: flex;
+    align-items: center;
 }
 
 /* Active and Hover states */
@@ -194,7 +226,7 @@ button:hover {
     background-color: var(--figma-color-bg-selected);
 }
 
-.active .pickSelector button {
+.active .pickSelector svg {
     color: var(--figma-color-icon-selected);
 }
 
@@ -206,10 +238,14 @@ button:hover {
     background-color: var(--figma-color-bg-hover);
 }
 
-.pickSelector:hover button {
+.pickSelector:hover svg {
     color: var(--figma-color-icon-secondary);
 }
 
 .active .pickSelector:hover {
     background-color: var(--figma-color-bg-selected);
+}
+
+.active .pickSelector:hover svg {
+    color: var(--figma-color-icon-selected);
 }
