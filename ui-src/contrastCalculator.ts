@@ -10,7 +10,7 @@ export function calculateWCAGContrast(foreground: string, background: string): n
     const contrastRatio = (Math.max(fgLuminance, bgLuminance) + 0.05) /
                           (Math.min(fgLuminance, bgLuminance) + 0.05);
   
-    return Number(contrastRatio.toFixed(2));
+    return Number(contrastRatio.toFixed(1));
   }
   
   function hexToRGB(hex: string): [number, number, number] {
@@ -28,18 +28,6 @@ export function calculateWCAGContrast(foreground: string, background: string): n
       return Math.pow((c + 0.055) / 1.055, 2.4);
     });
     return 0.2126 * rL + 0.7152 * gL + 0.0722 * bL;
-  }
-  
-  export function getWCAGLevel(contrastRatio: number): string {
-    if (contrastRatio >= 7) {
-      return 'AAA';
-    } else if (contrastRatio >= 4.5) {
-      return 'AA';
-    } else if (contrastRatio >= 3) {
-      return 'AA Large';
-    } else {
-      return 'Fail';
-    }
   }
   
   // Placeholder for APCA calculation

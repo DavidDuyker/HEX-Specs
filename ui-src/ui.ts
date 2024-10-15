@@ -1,12 +1,11 @@
 import {
   calculateWCAGContrast,
-  getWCAGLevel,
   calculateAPCAContrast,
 } from "./contrastCalculator";
 
 let foregroundColor: string = "#000000";
 let backgroundColor: string = "#FFFFFF";
-let contrast: number | null = null;
+let wcagContrast: number | null = null;
 let selectionMode: "none" | "foreground" | "background" = "none";
 
 function updateColor(color: string, type: "foreground" | "background"): void {
@@ -17,6 +16,7 @@ function updateColor(color: string, type: "foreground" | "background"): void {
   }
   calculateContrast();
   updateUIColors();
+  updateContrastUI();
 }
 
 function swapColors(): void {
@@ -28,8 +28,7 @@ function swapColors(): void {
 }
 
 function calculateContrast(): void {
-  const wcagContrast = calculateWCAGContrast(foregroundColor, backgroundColor);
-  const wcagLevel = getWCAGLevel(wcagContrast);
+  wcagContrast = calculateWCAGContrast(foregroundColor, backgroundColor);
 
   const wcagTextElement = document.getElementById("WCAGtext");
   if (wcagTextElement) {
@@ -59,6 +58,30 @@ function updateUIColors() {
     foregroundColor;
   (document.querySelector("#backgroundHTMLPicker") as HTMLInputElement).value =
     backgroundColor;
+}
+
+function updateContrastUI() {
+  const elements = [
+    { id: "checkExLargeAA", minContrast: 3 },
+    { id: "checkExBodyAA", minContrast: 4.5 },
+    { id: "checkBodyAA", minContrast: 4.5 },
+    { id: "checkBodyAAA", minContrast: 7 },
+    { id: "checkLargeAA", minContrast: 3 },
+    { id: "checkLargeAAA", minContrast: 4.5 }
+  ];
+
+  elements.forEach(({ id, minContrast }) => {
+    const element = document.getElementById(id);
+    if (element && wcagContrast) {
+      if (wcagContrast >= minContrast) {
+        element.classList.add("meetsCriteria");
+      } else {
+        element.classList.remove("meetsCriteria");
+      }
+    }
+  });
+
+  // Update Perceptual Card
 }
 
 function updateSelectionMode(
@@ -110,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "background",
     backgroundColor,
     "contrast",
-    contrast,
+    wcagContrast,
     "selection mode",
     selectionMode
   );
@@ -215,5 +238,4 @@ document.addEventListener("DOMContentLoaded", () => {
   // MESSAGE FROM PLUGIN JS LISTENING
 
   window.onmessage = handlePluginMessage;
-
 });

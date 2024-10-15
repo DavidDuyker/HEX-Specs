@@ -41,4 +41,4 @@ figma.on("selectionchange", () => {
 });
 
 // This shows the HTML page in "ui.html".
-figma.showUI(__html__, { width: 240, height: 216, themeColors: true });
+figma.showUI(__html__, { width: 240, height: 245, themeColors: true });
