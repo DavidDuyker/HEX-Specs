@@ -1,11 +1,12 @@
 import {
   calculateWCAGContrast,
-  calculateAPCAContrast,
+  calculatePerceptualContrast,
 } from "./contrastCalculator";
 
 let foregroundColor: string = "#000000";
 let backgroundColor: string = "#FFFFFF";
 let wcagContrast: number | null = null;
+let perceptualContrast: number | null = null;
 let selectionMode: "none" | "foreground" | "background" = "none";
 
 function updateColor(color: string, type: "foreground" | "background"): void {
@@ -29,18 +30,7 @@ function swapColors(): void {
 
 function calculateContrast(): void {
   wcagContrast = calculateWCAGContrast(foregroundColor, backgroundColor);
-
-  const wcagTextElement = document.getElementById("WCAGtext");
-  if (wcagTextElement) {
-    wcagTextElement.textContent = `${wcagContrast}`;
-  }
-
-  // Placeholder for APCA (to be implemented later)
-  const apcaContrast = calculateAPCAContrast(foregroundColor, backgroundColor);
-  const apcaTextElement = document.getElementById("APCAtext");
-  if (apcaTextElement) {
-    apcaTextElement.textContent = `${apcaContrast}`;
-  }
+  perceptualContrast = calculatePerceptualContrast(foregroundColor, backgroundColor);
 }
 
 function updateUIColors() {
@@ -61,6 +51,44 @@ function updateUIColors() {
 }
 
 function updateContrastUI() {
+  figma.notify("updateContrastUI function called");
+  const wcagTextElement = document.getElementById("WCAGtext");
+  if (wcagTextElement) {
+    wcagTextElement.textContent = `${wcagContrast}`;
+  }
+
+  //APCA calc
+  const apcaTextElement = document.getElementById("APCAtext");
+  if (apcaTextElement) {
+    apcaTextElement.textContent = `${perceptualContrast}`;
+  }
+
+  console.log("test", perceptualContrast);
+
+  console.log('apcaTextElement');
+
+  // Perceptual card updates
+  // const perceptualMinType = document.getElementById("perceptualMinType");
+  const perceptualText = document.getElementById("perceptualText");
+  console.log('perceptual text', perceptualText, perceptualContrast);
+
+  if (perceptualText && perceptualContrast) {
+    if (perceptualContrast < 15) {
+      perceptualText.innerText ="absolute minimum for non-text that needs to be discernible";
+    } else if (perceptualContrast >= 15 && perceptualContrast < 30) {
+
+    } else if (perceptualContrast >= 30 && perceptualContrast < 45) {
+
+    } else if (perceptualContrast >= 45 && perceptualContrast < 60) {
+
+    } else if (perceptualContrast >= 60 && perceptualContrast < 75) { 
+
+    } else {
+      perceptualText.innerText ="absolute minimum for non-text that needs to be discernible";
+    }
+  }
+
+  // WCAG card updates
   const elements = [
     { id: "checkExLargeAA", minContrast: 3 },
     { id: "checkExBodyAA", minContrast: 4.5 },
@@ -184,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "input"
       ) as HTMLInputElement | null;
       if (input) {
-        console.log("Form 1 submitted with value:", input.value);
+        // console.log("Form 1 submitted with value:", input.value);
         updateColor(input.value, "foreground");
       }
     });
@@ -195,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "input"
       ) as HTMLInputElement | null;
       if (input) {
-        console.log("Form 2 submitted with value:", input);
+        // console.log("Form 2 submitted with value:", input);
         updateColor(input.value, "background");
       }
     });
@@ -215,13 +243,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (foregroundColorPicker && backgroundColorPicker) {
     foregroundColorPicker.addEventListener("input", (event) => {
       event.preventDefault();
-      console.log("Form 1 submitted with value:", foregroundColorPicker.value);
+      // console.log("Form 1 submitted with value:", foregroundColorPicker.value);
       updateColor(foregroundColorPicker.value, "foreground");
     });
 
     backgroundColorPicker.addEventListener("input", (event) => {
       event.preventDefault();
-      console.log("Form 2 submitted with value:", backgroundColorPicker.value);
+      // console.log("Form 2 submitted with value:", backgroundColorPicker.value);
       updateColor(backgroundColorPicker.value, "background");
     });
   }

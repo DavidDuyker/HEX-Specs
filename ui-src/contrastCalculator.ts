@@ -1,4 +1,6 @@
 // contrastCalculator.ts
+import { APCAcontrast, sRGBtoY } from 'apca-w3';
+
 
 export function calculateWCAGContrast(foreground: string, background: string): number {
     const fgRGB = hexToRGB(foreground);
@@ -31,7 +33,16 @@ export function calculateWCAGContrast(foreground: string, background: string): n
   }
   
   // Placeholder for APCA calculation
-  export function calculateAPCAContrast(foreground: string, background: string): number {
-    // APCA calculation to be implemented
-    return 0;
+  export function calculatePerceptualContrast(foreground: string, background: string): number {
+    const fgRGB = hexToRGB(foreground);
+    const fgRGB255 = fgRGB.map(c => Math.round(c * 255));
+    const bgRGB = hexToRGB(background);
+    const bgRGB255 = bgRGB.map(c => Math.round(c * 255));
+
+    let Lc = APCAcontrast( sRGBtoY(fgRGB255 as [number, number, number]), sRGBtoY(bgRGB255 as [number, number, number]) );
+    console.log(Lc, sRGBtoY(fgRGB255 as [number, number, number]), sRGBtoY(bgRGB255 as [number, number, number]));
+
+    const roundedLc = Math.round(Number(Lc));
+    
+    return Math.abs(Number(roundedLc));
   }
