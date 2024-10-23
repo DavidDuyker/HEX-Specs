@@ -264,6 +264,16 @@ td p.yes {
     color: var(--figma-color-text-success)
 }
 
+/* APCA Card */
+
+#perceptualContrastTable tr th {
+    padding-left: 2px;
+}
+
+#perceptualContrastTable tr :nth-child(3) {
+    padding-left: 12px;
+}
+
 /* Interactive Picker things */
 
 /* temporary */

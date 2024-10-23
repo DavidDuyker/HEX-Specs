@@ -51,7 +51,6 @@ function updateUIColors() {
 }
 
 function updateContrastUI() {
-  figma.notify("updateContrastUI function called");
   const wcagTextElement = document.getElementById("WCAGtext");
   if (wcagTextElement) {
     wcagTextElement.textContent = `${wcagContrast}`;
@@ -63,28 +62,55 @@ function updateContrastUI() {
     apcaTextElement.textContent = `${perceptualContrast}`;
   }
 
-  console.log("test", perceptualContrast);
-
-  console.log('apcaTextElement');
-
   // Perceptual card updates
-  // const perceptualMinType = document.getElementById("perceptualMinType");
-  const perceptualText = document.getElementById("perceptualText");
-  console.log('perceptual text', perceptualText, perceptualContrast);
+  const regularBody = document.getElementById("regularBody");
+  const regularOther = document.getElementById("regularOther");
+  const boldBody = document.getElementById("boldBody");
+  const boldOther = document.getElementById("boldOther");
 
-  if (perceptualText && perceptualContrast) {
+  if (regularBody && regularOther && boldBody && boldOther && perceptualContrast) {
+    
     if (perceptualContrast < 15) {
-      perceptualText.innerText ="absolute minimum for non-text that needs to be discernible";
+      console.log('low');
+      regularBody.innerText ="low";
+      regularOther.innerText ="low";
+      boldBody.innerText ="low";
+      boldOther.innerText ="low";
     } else if (perceptualContrast >= 15 && perceptualContrast < 30) {
-
+      regularBody.innerText ="low";
+      regularOther.innerText ="low";
+      boldBody.innerText ="low";
+      boldOther.innerText ="low";
     } else if (perceptualContrast >= 30 && perceptualContrast < 45) {
-
+      regularBody.innerText ="low";
+      regularOther.innerText ="low";
+      boldBody.innerText ="low";
+      boldOther.innerText ="low";
     } else if (perceptualContrast >= 45 && perceptualContrast < 60) {
-
+      regularBody.innerText ="low";
+      regularOther.innerText ="36px";
+      boldBody.innerText ="low";
+      boldOther.innerText ="24px";
     } else if (perceptualContrast >= 60 && perceptualContrast < 75) { 
-
+      regularBody.innerText ="low";
+      regularOther.innerText ="24px";
+      boldBody.innerText ="low";
+      boldOther.innerText ="16px";
+    } else if (perceptualContrast >= 75 && perceptualContrast < 90) {
+      regularBody.innerText ="18px";
+      regularOther.innerText ="15px";
+      boldBody.innerText ="14px";
+      boldOther.innerText ="12px";
+    } else if (perceptualContrast >= 90) {
+      regularBody.innerText ="14px";
+      regularOther.innerText ="12px";
+      boldBody.innerText ="max";
+      boldOther.innerText ="32px";
     } else {
-      perceptualText.innerText ="absolute minimum for non-text that needs to be discernible";
+      regularBody.innerText ="err";
+      regularOther.innerText ="err";
+      boldBody.innerText ="err";
+      boldOther.innerText ="err";
     }
   }
 

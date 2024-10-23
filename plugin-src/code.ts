@@ -19,9 +19,10 @@ function getFill(nodes) {
     figma.notify("Please select a layer with a solid fill", {
       timeout: 1000,
     });
+    return undefined;
   }
 
-  return nodesWithFills.map(node => node.fills![0]);
+  return nodesWithFills.map((node) => (node as GeometryMixin).fills![0]);
 }
 
 figma.on("selectionchange", () => {
@@ -40,4 +41,4 @@ figma.on("selectionchange", () => {
 });
 
 // This shows the HTML page in "ui.html".
-figma.showUI(__html__, { width: 240, height: 245, themeColors: true });
+figma.showUI(__html__, { width: 240, height: 306, themeColors: true });

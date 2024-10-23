@@ -43,12 +43,27 @@
       </div>
       <div id="APCA" class="dashboardCard metric">
         <div class="cardPrimaryContent">
-          <h3>Perceptual [BETA]</h3>
+          <h3>Perceptual</h3>
           <p id="APCAtext" class="largeText disabled">—</p>
         </div>
         <div class="cardSecondaryContent">
-          <h3 id="perceptualMinType">16px minimum</h3>
-          <p id="perceptualText">Minimum contrast for content text</p>
+          <table id="perceptualContrastTable">
+            <tr>
+              <th></th>
+              <th>Regular</th>
+              <th><strong>Bold</strong></th>
+            </tr>
+            <tr>
+              <td>Body</t>
+              <td id="regularBody">--px</td>
+              <td id="boldBody">--px</td>
+            </tr>
+            <tr>
+              <td>Other Text</td>
+              <td id="regularOther">--px</td>
+              <td id="boldOther">--px</td>
+            </tr>
+          </table>
         </div>
       </div>
 
